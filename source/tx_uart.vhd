@@ -14,7 +14,7 @@ entity tx_uart is
 		clk   : in std_logic;
 		reset : in std_logic;
 
-		send : in std_logic;
+		send : in std_logic; -- se le indica al transmisor que envie "dato"
 		dato : in std_logic_vector (data_lenght - 1 downto 0);
 
 		tx : out std_logic

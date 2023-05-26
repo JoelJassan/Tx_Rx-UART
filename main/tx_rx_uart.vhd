@@ -24,7 +24,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity rx_tx_uart is
+entity tx_rx_uart is
     generic (
         --Transmisor
         nbits_tx   : integer := 13;
@@ -33,41 +33,59 @@ entity rx_tx_uart is
         nbits_rx   : integer := 9;
         cnt_max_rx : integer := 325;
         --Comun
-        data_lenght : integer := 8
-    )
+        data_lenght : integer := 8 --NO CAMBIAR ESTO HASTA NO HACER LA LOGICA DE LOS MODULOS
+    );
+
     port (
         --input ports
         clk    : in std_logic;
         reset  : in std_logic;
-        enable : in std_logic
+        enable : in std_logic;
 
+        rx_port : in std_logic;
         --output ports
-
+        tx_port : out std_logic
     );
 
 end entity;
 
-architecture a_rx_tx_uart of rx_tx_uart is
+architecture a_tx_rx_uart of tx_rx_uart is
 
     ----- Typedefs --------------------------------------------------------------------------------
 
     ----- Constants -------------------------------------------------------------------------------
 
     ----- Signals (i: entrada, o:salida, s:señal intermedia)---------------------------------------
+    signal dato_s : std_logic_vector (data_lenght - 1 downto 0);
+
+    -- transmiter
+    signal tx     : std_logic;
+    signal send_s : std_logic;
+
+    -- receiver 
+    signal rx      : std_logic;
+    signal rx_done : std_logic;
+
 begin
     ----- Components ------------------------------------------------------------------------------
 
     transmitter : entity work.tx_uart
-        generic map()
-        port map();
+        generic map(nbits_tx, cnt_max_tx, data_lenght)
+        port map(clk, reset, send_s, dato_s, tx);
 
     receiver : entity work.rx_uart
-        generic map()
-        port map();
+        generic map(nbits_rx, cnt_max_rx, data_lenght)
+        port map(clk, reset, rx, rx_done, dato_s);
 
     ----- Codigo ----------------------------------------------------------------------------------
 
     -- Logica Estado Siguiente
 
+    -- Conexion de señales
+    send_s <= rx_done; --
+
     -- Logica Salida
+    tx_port <= tx;
+    rx      <= rx_port;
+
 end architecture;

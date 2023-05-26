@@ -19,15 +19,11 @@ use ieee.std_logic_1164.all;
 
 entity rx_tx_uart is
 
-    generic (
-
-    );
-
     port (
         --input ports
         clk    : in std_logic;
         reset  : in std_logic;
-        enable : in std_logic;
+        enable : in std_logic
 
         --output ports
 
@@ -35,7 +31,7 @@ entity rx_tx_uart is
 
 end entity;
 
-architecture ent_a of ent is
+architecture a_rx_tx_uart of rx_tx_uart is
 
     ----- Typedefs --------------------------------------------------------------------------------
 

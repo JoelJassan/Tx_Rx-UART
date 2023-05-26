@@ -13,7 +13,7 @@ EXT = .vhd
 
 
 # ghdl config
-TIME = 20000000ns
+TIME = 4000000ns
 GHDL_SIM_TIME = --stop-time=$(TIME)
 COMPILATION_VERSION = --std=08
 

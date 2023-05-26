@@ -73,7 +73,7 @@ begin
         dato_i <= x"F0";
         wait for 800 ns;
         send_i <= '1';
-        wait for 1 us;
+        wait for 55 us;
         send_i <= '0';
         wait;
     end process;

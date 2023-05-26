@@ -1,8 +1,12 @@
+-- Codigo de la ingeniera.
+--
+---------------------------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity rx_uart is port (
+entity rx_uart_mef is port (
     clk   : in std_logic;
     reset : in std_logic;
 
@@ -12,7 +16,8 @@ entity rx_uart is port (
     dato    : out std_logic_vector(7 downto 0) := x"00"
 );
 end entity;
-architecture a_rx_uart of rx_uart is
+
+architecture a_rx_uart_mef of rx_uart_mef is
 
     type mef is (idle, start, data, stop);
 

@@ -1,7 +1,7 @@
 # directorios
 SRC_DIR = ./source
 CMP_DIR = ./components
-TB_DIR = ./testbench
+TB_DIR  = ./testbench
 
 # archivos
 SRC_FILE = tx_uart

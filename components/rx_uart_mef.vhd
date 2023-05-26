@@ -34,8 +34,8 @@ begin
             case estado is
                 when idle =>
                     if rx = '0' then
-                        cnt    <= 0;
                         estado <= start;
+                        cnt    <= 0;
                     else
                         estado  <= idle;
                         rx_done <= '0';
@@ -43,37 +43,37 @@ begin
 
                 when start =>
                     if (cnt = 7) then
+                        estado <= data;
                         cnt    <= 0;
                         n      <= 0;
-                        estado <= data;
                     else
-                        cnt    <= cnt + 1;
                         estado <= start;
+                        cnt    <= cnt + 1;
                     end if;
 
                 when data =>
                     if cnt = 15 then
-                        cnt      <= 0;
-                        temp (n) <= rx;
                         if (n = 7) then
                             estado <= stop;
                         else
-                            n      <= n + 1;
                             estado <= data;
+                            n      <= n + 1;
                         end if;
+                        cnt      <= 0;
+                        temp (n) <= rx;
                     else
-                        cnt    <= cnt + 1;
                         estado <= data;
+                        cnt    <= cnt + 1;
                     end if;
 
                 when stop =>
                     if cnt = 15 then
+                        estado  <= idle;
                         rx_done <= '1';
                         dato    <= temp;
-                        estado  <= idle;
                     else
-                        cnt    <= cnt + 1;
                         estado <= stop;
+                        cnt    <= cnt + 1;
                     end if;
             end case;
         end if;

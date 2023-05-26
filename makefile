@@ -4,7 +4,7 @@ CMP_DIR = ./components
 TB_DIR = ./testbench
 
 # archivos
-SRC_FILE = rx_uart
+SRC_FILE = tx_uart
 TB_FILE = $(SRC_FILE)_tb
 VCD_FILE = $(TB_FILE).vcd
 
@@ -13,7 +13,7 @@ EXT = .vhd
 
 
 # ghdl config
-TIME = 8000ns
+TIME = 20000000ns
 GHDL_SIM_TIME = --stop-time=$(TIME)
 COMPILATION_VERSION = --std=08
 
@@ -27,8 +27,8 @@ make: compile execute run
 all: compile execute run view
 
 compile:
-	ghdl -a $(COMPILATION_VERSION) $(SRC_DIR)/*.vhd
 	ghdl -a $(COMPILATION_VERSION) $(CMP_DIR)/*.vhd
+	ghdl -a $(COMPILATION_VERSION) $(SRC_DIR)/*.vhd
 	ghdl -a $(COMPILATION_VERSION) $(TB_DIR)/*.vhd
 
 execute:

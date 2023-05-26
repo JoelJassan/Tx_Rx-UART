@@ -2,16 +2,17 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity tx_uart is
+entity tx_uart_mef is
 	port (
 		clk   : in std_logic;
 		reset : in std_logic;
+		send  : in std_logic;
 		dato  : in std_logic_vector (7 downto 0);--  := x"00";
 		tx    : out std_logic
 	);
 end entity;
 
-architecture a_tx_uart of tx_uart is
+architecture a_tx_uart_mef of tx_uart_mef is
 
 	type mef is (idle, start, d0, d1, d2, d3, d4, d5, d6, d7, stop);
 	signal estado : mef;
@@ -24,7 +25,12 @@ begin
 			estado <= idle;
 		elsif rising_edge (clk) then
 			case estado is
-				when idle  => estado  <= start;
+				when idle =>
+					if (send = '1') then
+						estado <= start;
+					else
+						estado <= idle;
+					end if;
 				when start => estado <= d0;
 				when d0    => estado    <= d1;
 				when d1    => estado    <= d2;

@@ -23,8 +23,8 @@ architecture a_rx_uart_tb of rx_uart_tb is
     ----- Constants -------------------------------------------------------------------------------
     constant simulation_time : integer := 5000; --esto no funciona
 
-    constant nbits       : integer := 13;
-    constant cnt_max     : integer := 5209;
+    constant nbits       : integer := 9;
+    constant cnt_max     : integer := 325;
     constant data_lenght : integer := 8;
 
     ----- Simulation ------------------------------------------------------------------------------

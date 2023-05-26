@@ -30,7 +30,7 @@ entity rx_uart is
 
         --output ports
         rx_done : out std_logic;
-        dato    : out std_logic_vector (data_lenght - 1 downto 0)
+        dato    : out std_logic_vector (7 downto 0)
     );
 
 end entity;

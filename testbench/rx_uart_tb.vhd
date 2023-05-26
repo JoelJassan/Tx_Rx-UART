@@ -76,7 +76,7 @@ begin
     ejecucion : process
     begin
         rx_i <= '1';
-        wait for 1000 ns;
+        wait for 100 ns;
         rx_i <= '0';
         wait for 55000 ns;
         rx_i <= '1';

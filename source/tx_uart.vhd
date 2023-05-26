@@ -7,14 +7,14 @@ entity tx_uart is
 		clk   : in std_logic;
 		reset : in std_logic;
 
+		send : in std_logic;
+		dato : in std_logic_vector (7 downto 0);
+
 		tx : out std_logic
 	);
 end entity;
 
-architecture a_t_uart_rom of t_uart_rom is
-
-	-- Memoria
-	signal dato : std_logic_vector (7 downto 0);
+architecture a_tx_uart of tx_uart is
 
 	-- Reloj
 	signal clk_9600 : std_logic;
@@ -25,11 +25,11 @@ begin
 	--------- COMPONENTES -------------------------------------------
 
 	ut_9600 : entity work.contador_binario
-		generic map(13, 5209)
+		generic map(13, 5209) --(13, 5209)
 		port map(clk, reset, clk_9600, open);
 
 	ut_t_uart : entity work.tx_uart_mef
-		port map(clk_9600, reset, dato, salida_tx);
+		port map(clk_9600, reset, send, dato, salida_tx);
 
 	--------- CODIGO ------------------------------------------------
 

@@ -40,6 +40,9 @@ run:
 view:
 	gtkwave $(VCD_FILE)
 
+vcdGen:
+	touch tmp.vcd
+
 clean: 
 	rm *.vcd
 	rm work-obj08.cf

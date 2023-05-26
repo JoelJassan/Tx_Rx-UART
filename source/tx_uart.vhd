@@ -3,12 +3,19 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity tx_uart is
+
+	generic (
+		nbits       : integer := 13;
+		cnt_max     : integer := 5209;
+		data_lenght : integer := 8 --la mef de tx y rx no estan preparadas para cambiar cantidad
+	);
+
 	port (
 		clk   : in std_logic;
 		reset : in std_logic;
 
 		send : in std_logic;
-		dato : in std_logic_vector (7 downto 0);
+		dato : in std_logic_vector (data_lenght - 1 downto 0);
 
 		tx : out std_logic
 	);
@@ -25,7 +32,7 @@ begin
 	--------- COMPONENTES -------------------------------------------
 
 	ut_9600 : entity work.contador_binario
-		generic map(13, 5209) --(13, 5209)
+		generic map(nbits, cnt_max) --(13, 5209)
 		port map(clk, reset, clk_9600, open);
 
 	ut_t_uart : entity work.tx_uart_mef

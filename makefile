@@ -4,7 +4,7 @@ CMP_DIR = ./components
 TB_DIR  = ./testbench
 
 # archivos
-SRC_FILE = rx_uart
+SRC_FILE = tx_uart
 TB_FILE = $(SRC_FILE)_tb
 VCD_FILE = $(TB_FILE).vcd
 

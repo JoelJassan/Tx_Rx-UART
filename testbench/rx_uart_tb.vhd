@@ -76,9 +76,9 @@ begin
     ejecucion : process
     begin
         rx_i <= '1';
-        wait for 100 ns;
+        wait for 40 us;
         rx_i <= '0';
-        wait for 55000 ns;
+        wait for 160 us;
         rx_i <= '1';
         wait;
     end process;

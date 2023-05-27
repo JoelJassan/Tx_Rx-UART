@@ -58,6 +58,9 @@ DIRECTORIO_DEL_PROYECTO
 |- components
 |   |- archivos individuales (sin dependencias)
 |
+|- fpga
+|   |- todos los archivos y directorios generados en Quartus II al crear un proyecto
+|
 |- main
 |   |- archivo principal (del que se quiere hacer testbench)
 |

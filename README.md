@@ -68,6 +68,7 @@ DIRECTORIO_DEL_PROYECTO
 |   |- archivos de testbench
 |
 .gitignore
+LICENSE.txt
 makefile
 README.md
 ```

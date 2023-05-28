@@ -33,12 +33,14 @@
 *.qsf
 *.qar
 *.qws
+*.txt
 
 # ignore Quartus II generated folders -------------------------------------------------------------
 */db/
 */incremental_db/
 */output_files/
 */simulation/
+*/.qsys_edit/
 
 
 

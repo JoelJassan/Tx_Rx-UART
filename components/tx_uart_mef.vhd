@@ -19,35 +19,46 @@ architecture a_tx_uart_mef of tx_uart_mef is
 
 begin
 
-	process (clk, reset)
+	process (clk, reset, send)
+		variable send_flag : bit := '0';
 	begin
 		if reset = '0' then
 			estado <= idle;
+			send_flag := '0';
+
 		elsif rising_edge (clk) then
-			case estado is
-				when idle =>
-					if (send = '1') then
-						estado <= start;
-					else
-						estado <= idle;
-					end if;
-				when start => estado <= d0;
-				when d0    => estado    <= d1;
-				when d1    => estado    <= d2;
-				when d2    => estado    <= d3;
-				when d3    => estado    <= d4;
-				when d4    => estado    <= d5;
-				when d5    => estado    <= d6;
-				when d6    => estado    <= d7;
-				when d7    => estado    <= stop;
-				when stop  => estado  <= idle;
-			end case;
+
+			if send_flag = '1' then
+				estado <= start;
+			else
+
+				case estado is
+					when idle  => estado  <= start;
+					when start => estado <= d0;
+					when d0    => estado    <= d1;
+					when d1    => estado    <= d2;
+					when d2    => estado    <= d3;
+					when d3    => estado    <= d4;
+					when d4    => estado    <= d5;
+					when d5    => estado    <= d6;
+					when d6    => estado    <= d7;
+					when d7    => estado    <= stop;
+					when stop  => estado  <= stop;
+				end case;
+
+			end if;
+		end if;
+
+		if send = '1' then
+			send_flag := '1';
+		elsif (estado = start) then
+			send_flag := '0';
 		end if;
 
 	end process;
+
 	process (estado, dato)
 	begin
-
 		case estado is
 			when idle  => tx  <= '1';
 			when start => tx <= '0';
@@ -59,9 +70,8 @@ begin
 			when d5    => tx    <= dato(5);
 			when d6    => tx    <= dato(6);
 			when d7    => tx    <= dato(7);
-			when stop  => tx  <= '0';
+			when stop  => tx  <= '1';
 		end case;
-
 	end process;
 
 end architecture;

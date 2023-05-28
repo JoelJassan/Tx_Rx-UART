@@ -28,7 +28,7 @@ entity tx_rx_uart is
     generic (
         --Transmisor
         nbits_tx   : integer := 13;
-        cnt_max_tx : integer := 5209; --5209
+        cnt_max_tx : integer := 5200; --5209
         --Receptor
         nbits_rx   : integer := 9;
         cnt_max_rx : integer := 325;
@@ -45,6 +45,10 @@ entity tx_rx_uart is
         rx_port : in std_logic;
 
         --output ports
+        tx_analyzer   : out std_logic;
+        rx_analyzer   : out std_logic;
+        send_analyzer : out std_logic;
+
         tx_port : out std_logic
     );
 
@@ -83,10 +87,15 @@ begin
     -- Logica Estado Siguiente
 
     -- Conexion de señales
-    send_s <= rx_done; --
+    send_s <= rx_done;
 
     -- Logica Salida
     tx_port <= tx_s;
     rx_s    <= rx_port;
+
+    -- Señales del analizador logico
+    rx_analyzer   <= rx_s;
+    tx_analyzer   <= tx_s;
+    send_analyzer <= send_s;
 
 end architecture;

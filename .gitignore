@@ -32,6 +32,7 @@
 *.qpf
 *.qsf
 *.qar
+*.qws
 
 # ignore Quartus II generated folders -------------------------------------------------------------
 */db/

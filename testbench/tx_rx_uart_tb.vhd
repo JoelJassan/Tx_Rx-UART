@@ -21,8 +21,6 @@ architecture a_tx_rx_uart_tb of tx_rx_uart_tb is
     ----- Typedefs --------------------------------------------------------------------------------
 
     ----- Constants -------------------------------------------------------------------------------
-    constant simulation_time : integer := 5000; --esto no funciona
-
     --Transmisor
     constant nbits_tx   : integer := 13;
     constant cnt_max_tx : integer := 5209;
@@ -33,6 +31,8 @@ architecture a_tx_rx_uart_tb of tx_rx_uart_tb is
     constant data_lenght : integer := 8; --NO CAMBIAR ESTO HASTA NO HACER LA LOGICA DE LOS MODULOS
 
     ----- Simulation ------------------------------------------------------------------------------
+    constant simulation_time : time := 5000 ns; --esto no funciona
+    constant tiempo_de_pulso : time := 104 us;
 
     ----- Signals (i: entrada, o:salida, s:señal intermedia) --------------------------------------
     signal clk_i, rst_i, enable_i : std_logic;
@@ -41,7 +41,7 @@ architecture a_tx_rx_uart_tb of tx_rx_uart_tb is
 begin
     ----- Component to validate -------------------------------------------------------------------
     tx_rx : entity work.tx_rx_uart
-        generic map(nbits_tx, cnt_max_tx, nbits_rx, cnt_max_tx, data_lenght)
+        generic map(nbits_tx, cnt_max_tx, nbits_rx, cnt_max_rx, data_lenght)
         port map(clk_i, rst_i, enable_i, rx_port, tx_port);
 
     ----- Code ------------------------------------------------------------------------------------
@@ -74,8 +74,42 @@ begin
 
     -- component to validate stimulus ---------------------
     ejecucion : process
+        variable data : std_logic_vector (7 downto 0);
     begin
-        wait;
+
+        -- dato 1
+        data := x"DE";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for tiempo_de_pulso;
+
+        -- dato 2
+        data := x"FF";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for tiempo_de_pulso;
+
+        -- dato 3
+        data := x"8E";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for tiempo_de_pulso;
+
     end process;
     -------------------------------------------------------
 
@@ -83,7 +117,7 @@ begin
     stop : process
     begin
         wait;
-        --wait for 5000 ns; --tiempo total de
+        --wait for simulation_time; --tiempo total de
         --std.env.stop;
     end process;
 

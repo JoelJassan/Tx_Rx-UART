@@ -3,7 +3,7 @@
 -- Autor: Jassan, Joel
 -- Date: (may/YYYY)
 -- 
--- Proyect Explanation:
+-- Proyect Explanation: Modulo de union entre el contador y la rx_mef de la ingeniera
 --
 --
 -- Copyright 2023, Joel Jassan <joeljassan@hotmail.com>
@@ -43,7 +43,7 @@ architecture a_rx_uart of rx_uart is
 
     ----- Signals (i: entrada, o:salida, s:señal intermedia)---------------------------------------
 
-    -- contador (clk lento)
+    -- reloj (clk lento)
     signal clk_9600 : std_logic;
 
     -- mef uart

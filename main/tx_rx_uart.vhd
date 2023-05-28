@@ -28,7 +28,7 @@ entity tx_rx_uart is
     generic (
         --Transmisor
         nbits_tx   : integer := 13;
-        cnt_max_tx : integer := 5209;
+        cnt_max_tx : integer := 5209; --5209
         --Receptor
         nbits_rx   : integer := 9;
         cnt_max_rx : integer := 325;
@@ -43,6 +43,7 @@ entity tx_rx_uart is
         enable : in std_logic;
 
         rx_port : in std_logic;
+
         --output ports
         tx_port : out std_logic
     );
@@ -59,11 +60,11 @@ architecture a_tx_rx_uart of tx_rx_uart is
     signal dato_s : std_logic_vector (data_lenght - 1 downto 0);
 
     -- transmiter
-    signal tx     : std_logic;
+    signal tx_s   : std_logic;
     signal send_s : std_logic;
 
     -- receiver 
-    signal rx      : std_logic;
+    signal rx_s    : std_logic;
     signal rx_done : std_logic;
 
 begin
@@ -71,11 +72,11 @@ begin
 
     transmitter : entity work.tx_uart
         generic map(nbits_tx, cnt_max_tx, data_lenght)
-        port map(clk, reset, send_s, dato_s, tx);
+        port map(clk, reset, send_s, dato_s, tx_s);
 
     receiver : entity work.rx_uart
         generic map(nbits_rx, cnt_max_rx, data_lenght)
-        port map(clk, reset, rx, rx_done, dato_s);
+        port map(clk, reset, rx_s, rx_done, dato_s);
 
     ----- Codigo ----------------------------------------------------------------------------------
 
@@ -85,7 +86,7 @@ begin
     send_s <= rx_done; --
 
     -- Logica Salida
-    tx_port <= tx;
-    rx      <= rx_port;
+    tx_port <= tx_s;
+    rx_s    <= rx_port;
 
 end architecture;

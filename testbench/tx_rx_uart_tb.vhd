@@ -12,6 +12,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity tx_rx_uart_tb is
 end entity;
@@ -32,7 +33,7 @@ architecture a_tx_rx_uart_tb of tx_rx_uart_tb is
 
     ----- Simulation ------------------------------------------------------------------------------
     constant simulation_time : time := 5000 ns; --esto no funciona
-    constant tiempo_de_pulso : time := 104 us;
+    constant tiempo_de_pulso : time := 103.958 us;
 
     ----- Signals (i: entrada, o:salida, s:señal intermedia) --------------------------------------
     signal clk_i, rst_i, enable_i : std_logic;
@@ -76,9 +77,10 @@ begin
     ejecucion : process
         variable data : std_logic_vector (7 downto 0);
     begin
+        wait for 2 * tiempo_de_pulso;
 
         -- dato 1
-        data := x"DE";
+        data := x"01";
         rx_port <= '0'; --start
         wait for tiempo_de_pulso;
         for i in 0 to 7 loop
@@ -89,7 +91,7 @@ begin
         wait for tiempo_de_pulso;
 
         -- dato 2
-        data := x"FF";
+        data := x"23";
         rx_port <= '0'; --start
         wait for tiempo_de_pulso;
         for i in 0 to 7 loop
@@ -100,7 +102,18 @@ begin
         wait for tiempo_de_pulso;
 
         -- dato 3
-        data := x"8E";
+        data := x"45";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for 11 * tiempo_de_pulso;
+
+        -- dato 4
+        data := x"67";
         rx_port <= '0'; --start
         wait for tiempo_de_pulso;
         for i in 0 to 7 loop
@@ -109,6 +122,53 @@ begin
         end loop;
         rx_port <= '1'; --start
         wait for tiempo_de_pulso;
+
+        -- dato 5
+        data := x"89";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for tiempo_de_pulso;
+        wait for tiempo_de_pulso;
+
+        -- dato 6
+        data := x"AB";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for tiempo_de_pulso;
+
+        -- dato 7
+        data := x"CD";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for tiempo_de_pulso;
+
+        -- dato 8
+        data := x"EF";
+        rx_port <= '0'; --start
+        wait for tiempo_de_pulso;
+        for i in 0 to 7 loop
+            rx_port <= data(i);
+            wait for tiempo_de_pulso;
+        end loop;
+        rx_port <= '1'; --start
+        wait for tiempo_de_pulso;
+
+        wait;
 
     end process;
     -------------------------------------------------------

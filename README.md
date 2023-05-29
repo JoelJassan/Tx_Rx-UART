@@ -10,7 +10,7 @@
 
 ## Proyecto
 
-Modulo receptor UART funcional para FPGA en VHDL. Incluye los archivos de testbench.
+Modulo UART capaz de recibir y retransmitir tramas de datos. Fue testeada con lineas de hasta 80 bytes repetidas veces.
 El repositorio solo aporta los archivos .vhd, por lo que toda la funcionalidad para Q2 y ModelSim debe ser generada por quien use el repositorio.
 
 ## Consideraciones

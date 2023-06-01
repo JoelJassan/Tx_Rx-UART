@@ -33,7 +33,7 @@ architecture a_tx_rx_uart_tb of tx_rx_uart_tb is
 
     ----- Simulation ------------------------------------------------------------------------------
     constant simulation_time : time := 5000 ns; --esto no funciona
-    constant tiempo_de_pulso : time := 103.958 us;
+	    constant tiempo_de_pulso : time := 103.958 us;
 
     ----- Signals (i: entrada, o:salida, s:señal intermedia) --------------------------------------
     signal clk_i, rst_i, enable_i : std_logic;
@@ -110,7 +110,7 @@ begin
             wait for tiempo_de_pulso;
         end loop;
         rx_port <= '1'; --start
-        wait for 11 * tiempo_de_pulso;
+        --wait for 11 * tiempo_de_pulso;
 
         -- dato 4
         data := x"67";
@@ -133,7 +133,7 @@ begin
         end loop;
         rx_port <= '1'; --start
         wait for tiempo_de_pulso;
-        wait for tiempo_de_pulso;
+        --wait for tiempo_de_pulso;
 
         -- dato 6
         data := x"AB";
